@@ -7,44 +7,40 @@ function writePassword() {
   function generatePassword() {
     var lengthPrompt = window.prompt("How long do you want your password? Please choose between 8 and 128");
     if (lengthPrompt >= 8 && lengthPrompt <= 128) {
-      var numberRequest = window.prompt("Do you want your password to include numbers? Please type yes or no.")
-    }else {
+      var numberRequest = window.confirm("Do you want your password to include numbers? Please click 'OK' for yes or 'Cancel' for no.");
+    } else {
       window.alert("Please choose a valid number between 8 and 128");
     }
-    var makeNumPromptUppercase = numberRequest.toUpperCase();
-    if (makeNumPromptUppercase === "YES" || makeNumPromptUppercase === "NO") {
-      var lowercaseRequest = window.prompt("Do you want your password to include lowercase letters? Please type yes or no.")
-    } else {
-      window.alert("Please type yes or no");
-     // HOW DO I GET THIS TO RETURN TO LOWERCASEREQUEST PROMPT
+    if (numberRequest === true || numberRequest === false) {
+      var lowercaseRequest = window.confirm("Do you want your password to include lowercase letters? Please click 'OK' for yes or 'Cancel' for no.");
+    } 
+    if (lowercaseRequest === true || lowercaseRequest === false) {
+      var uppercaseRequest = window.confirm("Do you want your password to include uppercase letters? Please click 'OK' for yes or 'Cancel' for no.");
+    }
+    if (uppercaseRequest === true || uppercaseRequest === false) {
+      var symbolRequest = window.confirm("Do you want your password to include symbols? Please click 'OK' for yes or 'Cancel' for no.");
     }
 
-    var makeLowercasePromptUppercase = lowercaseRequest.toUpperCase();
-    if (makeLowercasePromptUppercase === "YES" || makeLowercasePromptUppercase === "NO") {
-      var uppercaseRequest = window.prompt("Do you want your password to include uppercase letters? Please type yes or no.")
-    } else {
-      window.alert("Please type yes or no");
-
-}
-var makeUppercasePromptUppercase = uppercaseRequest.toUpperCase();
-    if (makeUppercasePromptUppercase === "YES" || makeUppercasePromptUppercase === "NO") {
-      var symbolRequest = window.prompt("Do you want your password to include symbols? Please type yes or no.")
-    } else {
-      window.alert("Please type yes or no");
+    function getRandomLowercase() {
+        return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
     }
-
-
-
-
+    function getRandomUppercase() {
+        return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    }
+    function getRandomNum() {
+        return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+    }
+    function getRandomSymbol() {
+        var symbols = '!@#$%^&*(){}[]=<>,.?-_';
+        return symbols[Math.floor(Math.random() * symbols.length)];
+    }
 
   }
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
+33
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
