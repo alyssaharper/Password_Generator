@@ -41,13 +41,17 @@ function writePassword() {
         var symbols = '!@#$%^&*(){}[]=<>,.?-_';
         return symbols[Math.floor(Math.random() * symbols.length)];
     }
+    //created an object to contain all getRandom functions
     var getRandom = {
         lower: getRandomLowercase,
         upper: getRandomUppercase,
         number: getRandomNum,
         symbol: getRandomSymbol
     };
+    // console.log(getRandom);
 
+    var createdPassword = "";
+// creates a variable that lets me know how many character types were chosen in the prompts
     var typesCount = numberRequest + lowercaseRequest + uppercaseRequest + symbolRequest;
 
         // console.log(typesCount)
@@ -57,10 +61,19 @@ function writePassword() {
         // console.log(generatedArr);
   // Checks to make sure that at least one option of character type was selected otherwise they are prompted to try again and select a character type.  
     if(typesCount === 0) {
-        return window.alert("You must select at least character type.")
-    }
-
-
+        return window.alert("You must select at least one character type.")
+    };
+// Created a for loop to cycle through the different type counts for length chosen
+    for (var i = 0; i < lengthPrompt; i += typesCount) {
+        generatedArr.forEach(type => {
+            var selectedTypes = Object.keys(type)[0];
+            // console.log(selectedTypes);
+            createdPassword += getRandom[selectedTypes]();
+        });  
+    };
+    // console.log(createdPassword);
+   
+  
   }
   var passwordText = document.querySelector("#password");
 
