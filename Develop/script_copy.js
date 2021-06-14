@@ -4,7 +4,36 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  function generatePassword() {
+
+  / gets a random lowercase letter
+  function getRandomLowercase() {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+  }
+  // gets a random uppercase letter
+  function getRandomUppercase() {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+  }
+  //gets a random number
+  function getRandomNum() {
+      return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+  }
+  //gets a random symbol
+  function getRandomSymbol() {
+      var symbols = '!@#$%^&*(){}[]=<>,.?-_';
+      return symbols[Math.floor(Math.random() * symbols.length)];
+  }
+  //created an object to contain all getRandom functions
+  var getRandom = {
+      lower: getRandomLowercase,
+      upper: getRandomUppercase,
+      number: getRandomNum,
+      symbol: getRandomSymbol
+  };
+  // console.log(getRandom);
+
+
+
+  function generatePassword(number, lower, upper, symbol, length) {
       // asks for length of password and if not proper length selected, gives an alert to tell them to input a correct number
     var lengthPrompt = window.prompt("How long do you want your password? Please choose between 8 and 128");
     if (lengthPrompt >= 8 && lengthPrompt <= 128) {
@@ -24,31 +53,7 @@ function writePassword() {
     if (uppercaseRequest === true || uppercaseRequest === false) {
       var symbolRequest = window.confirm("Do you want your password to include symbols? Please click 'OK' for yes or 'Cancel' for no.");
     }
-// gets a random lowercase letter
-    function getRandomLowercase() {
-        return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-    }
-    // gets a random uppercase letter
-    function getRandomUppercase() {
-        return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    }
-    //gets a random number
-    function getRandomNum() {
-        return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-    }
-    //gets a random symbol
-    function getRandomSymbol() {
-        var symbols = '!@#$%^&*(){}[]=<>,.?-_';
-        return symbols[Math.floor(Math.random() * symbols.length)];
-    }
-    //created an object to contain all getRandom functions
-    var getRandom = {
-        lowercaseRequest: getRandomLowercase,
-        uppercaseRequest: getRandomUppercase,
-        numberRequest: getRandomNum,
-        symbolRequest: getRandomSymbol
-    };
-    // console.log(getRandom);
+/
 
     var createdPassword = "";
 // creates a variable that lets me know how many character types were chosen in the prompts
@@ -68,17 +73,11 @@ function writePassword() {
     for (var i = 0; i < lengthPrompt; i += typesCount) {
         generatedArr.forEach(type => {
             var selectedTypes = Object.keys(type)[0];
-            // console.log(typeof getRandom[selectedTypes]);
-            // console.log(typeof getRandom["lower"]);
-            // console.log(typeof selectedTypes);
             // console.log(selectedTypes);
-            // console.log(typeof createdPassword);
-            createdPassword += getRandom[selectedTypes]();
+            createdPassword += getRandom[selectedTypes];
         });  
     };
-
-
-    // console.log(createdPassword);
+    console.log(createdPassword);
    
   
   }
